@@ -32,29 +32,43 @@ $(function() {
     ];
 
     const originalData = [...dataJson];
-    let dataJsonCopy = [...originalData];
 
     // Build body
     $("body").append(
-        $("<div id='studentContainer'></div>")
+        $("<div id='studentContainer'></div>").css({'text-align':'center'})
     );
 
-    //add html elements to container
-    $("#studentContainer").append(
-        $("<h1>Student Data Website</h1>"),
-        $("<div id='wordCloudDiv'></div>"),
-        $("<h2>This is a Student Data Table</h2>"),
-        $("<table id='studentDataTable'></table>"),
-        $("<h2>Add New Student</h2>"),
-        $("<div id='studentFormContainer'></div>")
-    );
+    // Add HTML elements to container
+    //https://stackoverflow.com/questions/53692749/javascript-change-css-width
+$("#studentContainer").append(
+    $("<h1>Student Data Website</h1>").css({'text-align':'center'}),
+    $("<div id='topDiv'></div>"),
+    $("<div id='bottomDiv'></div>"));
 
-     // Build form
-    $("#studentFormContainer").append(
-        $("<form id='studentForm'></form>")
-    );
+$("#topDiv").append(
+    $("<div id='wordCloudDiv'></div>")
+).css({
+    "width": "60%",
+    "margin":"auto"
+});
 
-        
+$("#bottomDiv").append(
+    $("<div id='studentFormContainer'></div>").css({'margin':'auto', 'margin-top' : '0', 'padding': '20px','width': '20%', 'display' : 'inline-block'}),
+    $("<table id='studentDataTable'></table>").css({'margin':'0', 'padding': '20px','width': '50%', 'display': 'inline-block'})
+).css({
+    'display' : 'flex',
+    'justify-content' :'space-around',
+    "width": "60%",
+    "margin":"auto"
+});
+
+$("#studentFormContainer").append(
+    $("<h2>Add New Student</h2>").css({'margin-top' : '0'}),
+    $("<form id='studentForm'></form>")
+);
+
+
+// Function to render form
 function renderForm() {
     $("#studentForm").append(
         $('<input type="text" placeholder="Name" id="name" required>'),
@@ -85,7 +99,7 @@ function renderForm() {
         }
         renderTable();
 
-        //https://docs.anychart.com/Basic_Charts/Tag_Cloud#general_settings
+        
         function renderWordCloud() {
             $("#wordCloudDiv").empty();
             dataJson.forEach((student, index) => {
